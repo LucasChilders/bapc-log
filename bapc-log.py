@@ -21,26 +21,33 @@ def writeFile(post):
     title = post.title
     title = title.replace(",", "|")
 
-    catagory = title.split("]")[0]
-    catagory = catagory.split("[")[1]
+    try:
+        catagory = title.split("]")[0]
+        catagory = catagory.split("[")[1]
+        title = title.split("]")[1]
+        title = title.strip()
+    except:
+        logFile.close()
+        print("Catagory not found, returning.")
+        return
 
     if catagory.lower() == "meta":
         logFile.close()
         print("META post found, returning.")
         return
 
-    title = title.split("]")[1]
-    title = title.strip()
-
-    price = title.split("$")[1]
-    price = price.split(" ")[0]
-    price = re.findall(r'\d+', price)[0]
+    try:
+        price = title.split("$")[1]
+        price = price.split(" ")[0]
+        price = re.findall(r'\d+', price)[0]
+    except:
+        price = ""
+        print("Cannot find price, blank inserted.")
 
     data = catagory + "," + title + "," + price + "," + str(getDate(post)) + "," + str(post.url)
     data = data.split(",")
 
     writer.writerow(data)
-
     logFile.close()
 
 
