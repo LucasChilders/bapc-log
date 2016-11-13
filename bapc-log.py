@@ -44,7 +44,10 @@ def writeFile(post):
         price = ""
         print("Cannot find price, blank inserted.")
 
-    data = catagory + "," + title + "," + price + "," + str(getDate(post)) + "," + str(post.url)
+    url = post.url
+    url = url.replace(",", "|")
+
+    data = catagory + "," + title + "," + price + "," + str(getDate(post)) + "," + url
     data = data.split(",")
 
     writer.writerow(data)
