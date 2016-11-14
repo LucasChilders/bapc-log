@@ -21,6 +21,7 @@ def checkFile(post):
         reader = csv.reader(f, delimiter=',')
         for row in reader:
             if post.id == row[0]:
+                f.close()
                 return True
     f.close()
 
