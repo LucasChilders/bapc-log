@@ -1,10 +1,12 @@
+import os
 import praw
 import csv
 import datetime
 import re
 
-LOG_DIR = "log.csv"
+LOG_DIR = "Desktop/bapc-log/log.csv"
 SUB_REDDIT = "buildapcsales"
+PUSH_LOC = "./Desktop/bapc-log/push.sh"
 
 def getPost(sub):
     reddit = praw.Reddit(user_agent = "/u/LucasChilders")
@@ -24,6 +26,9 @@ def checkFile(post):
                 f.close()
                 return True
     f.close()
+
+def updateGit():
+	os.system(PUSH_LOC)
 
 def writeFile(post):
     if checkFile(post):
@@ -69,5 +74,6 @@ def writeFile(post):
 
     writer.writerow(data)
     logFile.close()
+    #updateGit()
 
 writeFile(getPost(SUB_REDDIT))
