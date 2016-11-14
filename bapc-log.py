@@ -1,8 +1,10 @@
-import os
 import praw
 import csv
 import datetime
 import re
+
+LOG_DIR = "log.csv"
+SUB_REDDIT = "buildapcsales"
 
 def getPost(sub):
     reddit = praw.Reddit(user_agent = "/u/LucasChilders")
@@ -14,8 +16,20 @@ def getDate(post):
     time = post.created
     return datetime.datetime.fromtimestamp(time)
 
+def checkFile(post):
+    with open(LOG_DIR, 'rt') as f:
+        reader = csv.reader(f, delimiter=',')
+        for row in reader:
+            if post.id == row[0]:
+                return True
+    f.close()
+
 def writeFile(post):
-    logFile = open("log.csv", "a", newline="")
+    if checkFile(post):
+        print("Duplicate post found, returning.")
+        return
+
+    logFile = open(LOG_DIR, "a", newline="")
     writer = csv.writer(logFile, delimiter = ',')
 
     title = post.title
@@ -44,15 +58,15 @@ def writeFile(post):
         price = ""
         print("Cannot find price, blank inserted.")
 
-    url = post.url
+    url = post.permalink
     url = url.replace(",", "|")
 
-    data = catagory + "," + title + "," + price + "," + str(getDate(post)) + "," + url
+    postId = post.id
+
+    data = postId + "," + catagory + "," + title + "," + price + "," + str(getDate(post)) + "," + url
     data = data.split(",")
 
     writer.writerow(data)
     logFile.close()
 
-
-post = getPost("buildapcsales")
-writeFile(post)
+writeFile(getPost(SUB_REDDIT))
