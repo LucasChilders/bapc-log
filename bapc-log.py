@@ -6,7 +6,7 @@ import re
 
 LOG_DIR = "Desktop/bapc-log/log.csv"
 SUB_REDDIT = "buildapcsales"
-PUSH_LOC = "./Desktop/bapc-log/push.sh"
+#PUSH_LOC = "./Desktop/bapc-log/push.sh"
 
 def getPost(sub):
     reddit = praw.Reddit(user_agent = "/u/LucasChilders")
@@ -27,8 +27,8 @@ def checkFile(post):
                 return True
     f.close()
 
-def updateGit():
-	os.system(PUSH_LOC)
+#def updateGit():
+#	os.system(PUSH_LOC)
 
 def writeFile(post):
     if checkFile(post):
