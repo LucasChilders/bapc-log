@@ -15,3 +15,4 @@ All changes to the log.csv file will be pushed here nightly.
 
 ####Todo
 * Only check last post for repeat to improve efficiency
+* Better checking for price in title (lack of dollar sign)
