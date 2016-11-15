@@ -2,6 +2,8 @@ bapc-log
 =====
 Keeps log of all posts from reddit.com/r/buildapcsales/new to later on plot graph and create searchable data.
 
+All changes to the log.csv file will be pushed here nightly.
+
 ####Dependencies
 * PRAW
 
@@ -11,5 +13,5 @@ Keeps log of all posts from reddit.com/r/buildapcsales/new to later on plot grap
 3. Run bapc-log.py with Python 3
 4. Results will be added to log.csv
 
-All changes to the log.csv file will be pushed here nightly.
+####Todo
 * Only check last post for repeat to improve efficiency
