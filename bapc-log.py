@@ -6,6 +6,10 @@ import re
 
 LOG_DIR = "Desktop/bapc-log/log.csv"
 SUB_REDDIT = "buildapcsales"
+CATA = ["case", "cooler", "fan", "hdd", "keyboard", 
+        "mouse", "ram", "mobo", "controller", "cpu", 
+        "gpu", "headphones", "monitor", "psu", "ssd", 
+        "laptop"]
 #PUSH_LOC = "./Desktop/bapc-log/push.sh"
 
 def getPost(sub):
@@ -30,6 +34,12 @@ def checkFile(post):
 #def updateGit():
 #	os.system(PUSH_LOC)
 
+def isValidCatagory(catagory):
+    if catagory.lower() in CATA:
+        return True
+    else:
+        return False
+
 def writeFile(post):
     if checkFile(post):
         print("Duplicate post found, returning.")
@@ -44,6 +54,12 @@ def writeFile(post):
     try:
         catagory = title.split("]")[0]
         catagory = catagory.split("[")[1]
+        
+        if isValidCatagory(catagory) == False:
+            logFile.close();
+            print("Catagory not found, returning.")
+            return
+        
         title = title.split("]")[1]
         title = title.strip()
     except:
