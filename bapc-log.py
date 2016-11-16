@@ -57,7 +57,7 @@ def writeFile(post):
         
         if isValidCatagory(catagory) == False:
             logFile.close();
-            print("Catagory not found, returning.")
+            print("Catagory not allowed, returning.")
             return
         
         title = title.split("]")[1]
