@@ -23,7 +23,7 @@ def getDate(post):
     return datetime.datetime.fromtimestamp(time)
 
 def checkFile(post):
-    with open(LOG_DIR, 'rt', encoding='iso-8859-1') as f:
+    with open(LOG_DIR, 'rt', encoding='utf-8') as f:
         reader = csv.reader(f, delimiter=',')
         for row in reader:
             if post.id == row[0]:
@@ -45,7 +45,7 @@ def writeFile(post):
         print("Duplicate post found, returning.")
         return
 
-    logFile = open(LOG_DIR, "a", newline="", encoding='iso-8859-1')
+    logFile = open(LOG_DIR, "a", newline="", encoding='utf-8')
     writer = csv.writer(logFile, delimiter = ',')
 
     title = post.title
